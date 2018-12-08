@@ -175,6 +175,33 @@ func part1(shifts []Shift) uint {
     return biggestSleepingMinute * biggestSleeper
 }
 
+func part2(shifts []Shift) uint {
+    stats := map[uint]map[uint]uint{}
+
+    biggestSleeper := uint(0)
+    biggestSleepingMinute := uint(0)
+    biggestSleepingMinuteCount := uint(0)
+
+    for _, shift := range shifts {
+        if stats[shift.guard] == nil {
+            stats[shift.guard] = map[uint]uint{}
+        }
+        for i := uint(0); i < 60; i++ {
+            if shift.sleepSchedule.Test(i) {
+                stats[shift.guard][i]++
+
+                if biggestSleepingMinuteCount < stats[shift.guard][i] {
+                    biggestSleeper = shift.guard
+                    biggestSleepingMinute = i
+                    biggestSleepingMinuteCount = stats[shift.guard][i]
+                }
+            }
+        }
+    }
+
+    return biggestSleeper * biggestSleepingMinute
+}
+
 func main() {
     if len(os.Args) != 2 {
         fmt.Println("Please provide the file in arguments...")
@@ -209,4 +236,5 @@ func main() {
     shifts := buildShifts(actions)
 
     fmt.Printf("Part 1: %d\n", part1(shifts))
+    fmt.Printf("Part 2: %d\n", part2(shifts))
 }
