@@ -17,8 +17,18 @@ fn main() {
     content.trim();
 
     let result = reduce(&content);
-
     println!("Part 1: {}", result);
+
+    let mut best_size = std::u32::MAX;
+    for to_remove in b'a'..(b'z' + 1) {
+        let mut reduced_content = content.clone();
+        reduced_content.retain(|c| c.to_ascii_lowercase() != to_remove as char);
+        let size = reduce(&reduced_content) as u32;
+        if size < best_size {
+            best_size = size;
+        }
+    }
+    println!("Part 2: {}", best_size);
 }
 
 fn reduce(content: &str) -> usize {
