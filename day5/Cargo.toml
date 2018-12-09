@@ -1,0 +1,7 @@
+[package]
+name = "day5"
+version = "0.1.0"
+authors = ["Charles Vandevoorde <charles.vandevoorde@hotmail.be>"]
+edition = "2018"
+
+[dependencies]

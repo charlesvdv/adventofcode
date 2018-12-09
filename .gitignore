@@ -1,2 +1,6 @@
 *.input
 *.out
+
+# rust
+target/
+Cargo.lock
